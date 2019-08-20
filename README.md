@@ -1,6 +1,6 @@
-# Autolab 15-388
+# Autolab Testing
 
-Simple nose-like testing framework for Jupyter Notebooks, complete with AutoLab adapter.
+Simple nose-like testing framework for Python, with AutoLab adapter.
 
 Run it with:
 
