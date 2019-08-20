@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="autolab-15388",
+    name="autolab-testing",
     version="0.0.1",
     author="Gaurav Manek",
     author_email="gaurav@gauravmanek.com",
