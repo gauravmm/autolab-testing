@@ -1,5 +1,7 @@
 import argparse
+import glob
 import inspect
+import itertools
 import json
 import os
 import traceback
@@ -17,11 +19,11 @@ def main(args):
     assert args.code, "There must be at least one --code source file"
     assert args.test, "There must be at least one --test testset"
 
-    for import_file in args.code:
+    for import_file in itertools.chain(*args.code):
         exec(import_file, import_globals)
 
     graders = {}
-    for test_file in args.test:
+    for test_file in itertools.chain(*args.test):
         test_global = minimal_globals()
         exec(test_file, test_global)
 
@@ -50,11 +52,8 @@ def main(args):
     return json.dumps({ k: v.get() for k, v in graders.items()})
 
 def read_file(p):
-    import_file = Path(p)
-    if import_file.suffix != ".py":
-        raise Exception(f"{import_file} should be a python file!")
-
-    return import_file.read_text()
+    files = [Path(f) for f in glob.glob(p)]
+    return [f.read_text() for f in files if f.suffix == ".py"]
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Autolab Grader for Jupyter Notebooks")
