@@ -32,7 +32,7 @@ class Grader(object):
     def process(self, passed, output, score=1):
         if len(self.tests_output) == 0:
             print(f"{self.func_name} " + ("=" * (80-len(self.func_name)-1)))
-        print(f"[{len(self.tests_output): >3}] {output}")
+        print(f"[{len(self.tests_output): >3}: {score if passed else 0:0>2}/{score:0>2}] {output}")
 
         self.max += score
         self.tests_output.append(passed)
