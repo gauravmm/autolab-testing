@@ -20,11 +20,12 @@ def main(args):
     assert args.test, "There must be at least one --test testset"
 
     for import_file in itertools.chain(*args.code):
+        import_globals["__file__"] = str(import_file.resolve())
         exec(import_file, import_globals)
 
     graders = {}
     for test_file in itertools.chain(*args.test):
-        test_global = minimal_globals()
+        test_global = {**minimal_globals(), "__file__": str(test_file.resolve()) }
         exec(test_file, test_global)
 
         # Now we pass each test function a grader object:
