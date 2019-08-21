@@ -19,13 +19,13 @@ def main(args):
     assert args.code, "There must be at least one --code source file"
     assert args.test, "There must be at least one --test testset"
 
-    for import_file in itertools.chain(*args.code):
-        import_globals["__file__"] = str(import_file.resolve())
+    for import_file_path, import_file in itertools.chain(*args.code):
+        import_globals["__file__"] = str(import_file_path.resolve())
         exec(import_file, import_globals)
 
     graders = {}
-    for test_file in itertools.chain(*args.test):
-        test_global = {**minimal_globals(), "__file__": str(test_file.resolve()) }
+    for test_file_path, test_file in itertools.chain(*args.test):
+        test_global = {**minimal_globals(), "__file__": str(test_file_path.resolve()) }
         exec(test_file, test_global)
 
         # Now we pass each test function a grader object:
@@ -54,7 +54,7 @@ def main(args):
 
 def read_file(p):
     files = [Path(f) for f in glob.glob(p)]
-    return [f.read_text() for f in files if f.suffix == ".py"]
+    return [(f, f.read_text()) for f in files if f.suffix == ".py"]
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Autolab Grader for Jupyter Notebooks")
