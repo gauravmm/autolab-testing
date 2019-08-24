@@ -51,7 +51,7 @@ def main(args):
         print(f"ERROR: NO GRADING FUNCTIONS FOUND")
 
     scores = { k: v.get() for k, v in graders.items()}
-    scoreboard = [ sum(v.values()) ]
+    scoreboard = [ sum(g.get() for g in graders.values()) ]
     return json.dumps({ "scores": scores, "scoreboard": scoreboard })
 
 def read_file(p):
