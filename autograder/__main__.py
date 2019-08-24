@@ -50,7 +50,9 @@ def main(args):
     if len(graders) == 0:
         print(f"ERROR: NO GRADING FUNCTIONS FOUND")
 
-    return json.dumps({ k: v.get() for k, v in graders.items()})
+    scores = { k: v.get() for k, v in graders.items()}
+    scoreboard = [ sum(v.values()) ]
+    return json.dumps({ "scores": scores, "scoreboard": scoreboard })
 
 def read_file(p):
     files = [Path(f) for f in glob.glob(p)]
