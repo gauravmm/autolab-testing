@@ -2,7 +2,7 @@ def impl_equal(value, reference):
     if value == reference:
         return (True, "Passed")
     else:
-        return (False, f"Failed: {unicode(value):1000.1000} is not equal to reference value")
+        return (False, f"Failed: {str(value).encode():1000.1000} is not equal to reference value")
 
 def impl_true(prop):
     if prop:
