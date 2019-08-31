@@ -2,7 +2,7 @@ def impl_equal(value, reference):
     if value == reference:
         return (True, "Passed")
     else:
-        value = str(value).encode()
+        value = str(value)
         if len(value) > 1000:
             value = value[:1000]
         return (False, f"Failed: {value} is not equal to reference value")
