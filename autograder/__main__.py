@@ -4,6 +4,7 @@ import inspect
 import itertools
 import json
 import os
+import time
 import traceback
 from pathlib import Path
 
@@ -40,12 +41,17 @@ def main(args):
                 continue
 
             graded_func = import_globals[func_name]
+            start_time = time.perf_counter()
             try:
                 grading_func(graders[func_name], graded_func)
 
             except Exception as exc:
                 print(f"ERROR: UNCAUGHT EXCEPTION DURING GRADING")
                 print("\n".join(traceback.format_exception(etype=type(exc), value=exc, tb=exc.__traceback__)))
+
+            finally:
+                print(f"Completed in {(time.perf_counter() - start_time)}")
+            print("\n")
 
     if len(graders) == 0:
         print(f"ERROR: NO GRADING FUNCTIONS FOUND")
