@@ -1,5 +1,5 @@
 def impl_equal(value, reference):
-    if value == reference:
+    if reference == value:
         return (True, "Passed")
     else:
         value = str(value)
