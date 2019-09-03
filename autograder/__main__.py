@@ -63,9 +63,10 @@ def main(args):
 def read_file(p):
     files = [Path(f) for f in glob.glob(p)]
     try:
-        rv = [(f, f.read_text()) for f in files if f.suffix == ".py"]
+        rv = [(f, f.read_bytes()) for f in files if f.suffix == ".py"]
     except Exception as e:
         print(e)
+        raise
 
     return rv
 
