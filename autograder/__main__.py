@@ -62,7 +62,12 @@ def main(args):
 
 def read_file(p):
     files = [Path(f) for f in glob.glob(p)]
-    return [(f, f.read_text()) for f in files if f.suffix == ".py"]
+    try:
+        rv = [(f, f.read_text()) for f in files if f.suffix == ".py"]
+    except Exception as e:
+        print(e)
+
+    return rv
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Autolab Grader for Jupyter Notebooks")
