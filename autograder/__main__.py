@@ -30,7 +30,7 @@ def main(args):
         exec(test_file, test_global)
 
         # Now we pass each test function a grader object:
-        for key, grading_func in test_global.items():
+        for key, grading_func in list(test_global.items()):
             if key.startswith("_") or not key.endswith(GRADE_FUNC_SUFFIX):
                 continue
             func_name = key[:-len(GRADE_FUNC_SUFFIX)]
